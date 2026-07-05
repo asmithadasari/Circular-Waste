@@ -16,6 +16,7 @@ from app.database import get_db
 from app.models import WasteBatch
 from app.schemas import DashboardResponse
 from app.services.insights import generate_insight
+from app.services.llm_insights import generate_llm_insight
 
 router = APIRouter(tags=["dashboard"])
 
@@ -54,7 +55,11 @@ def get_dashboard(db: Session = Depends(get_db)):
         for day, v in sorted(trend_by_day.items())
     ]
 
-    insight = generate_insight(dict(waste_by_material), dict(source_totals))
+    insight_source = "llm"
+    insight = generate_llm_insight(dict(waste_by_material), dict(source_totals))
+    if insight is None:
+        insight = generate_insight(dict(waste_by_material), dict(source_totals))
+        insight_source = "deterministic"
 
     return DashboardResponse(
         total_waste_processed_kg=round(total_kg, 2),
@@ -65,4 +70,5 @@ def get_dashboard(db: Session = Depends(get_db)):
         diversion_trend=diversion_trend,
         lifecycle_status_counts=dict(status_counts),
         insight=insight,
+        insight_source=insight_source,
     )

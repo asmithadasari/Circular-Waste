@@ -106,7 +106,18 @@ export default function Dashboard() {
       )}
 
       <div className="card p-6 border-l-4 border-l-clay-500">
-        <p className="text-xs uppercase tracking-wide text-clay-500 font-semibold mb-2">ReLoop Insight</p>
+        <div className="flex justify-between items-center mb-2">
+          <p className="text-xs uppercase tracking-wide text-clay-500 font-semibold">ReLoop Insight</p>
+          {data.insight_source && (
+            <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+              data.insight_source === "llm" 
+                ? "bg-moss-100 text-moss-700" 
+                : "bg-clay-100 text-clay-700"
+            }`}>
+              {data.insight_source === "llm" ? "AI Generated" : "Deterministic"}
+            </span>
+          )}
+        </div>
         <p className="text-ink/80">{data.insight}</p>
       </div>
     </div>

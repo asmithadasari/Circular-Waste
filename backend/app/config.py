@@ -18,6 +18,10 @@ class Settings:
     CONFIDENCE_THRESHOLD: float = float(
         os.getenv("CLASSIFICATION_CONFIDENCE_THRESHOLD", "0.6")
     )
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    LLM_TIMEOUT_SECONDS: float = float(os.getenv("LLM_TIMEOUT_SECONDS", "10.0"))
+
 
 
 settings = Settings()

@@ -106,3 +106,4 @@ class DashboardResponse(BaseModel):
     diversion_trend: list[dict[str, Any]]
     lifecycle_status_counts: dict[str, int]
     insight: str
+    insight_source: str
