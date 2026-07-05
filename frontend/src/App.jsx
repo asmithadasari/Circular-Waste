@@ -22,7 +22,7 @@ export default function App() {
         </Routes>
       </main>
       <footer className="border-t border-moss-100 py-6 text-center text-sm text-ink/50">
-        ReLoop AI - Circular Waste Intelligence Platform - VYNEDAM Talent Hunt 2K26, Problem 14
+        ReLoop AI - An Circular Waste Intelligence Platform 
       </footer>
     </div>
   );
