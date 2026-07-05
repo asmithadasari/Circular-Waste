@@ -12,7 +12,7 @@ const NEXT_STEP = {
 
 export default function Passport() {
   const [params] = useSearchParams();
-  const batchId = params.get("batch");
+  const batchId = params.get("batch") || sessionStorage.getItem("activeBatchId");
 
   const [batch, setBatch] = useState(null);
   const [timeline, setTimeline] = useState([]);
@@ -34,8 +34,12 @@ export default function Passport() {
   }
 
   useEffect(() => {
-    if (batchId) load();
-    else setLoading(false);
+    if (batchId) {
+      sessionStorage.setItem("activeBatchId", batchId);
+      load();
+    } else {
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [batchId]);
 

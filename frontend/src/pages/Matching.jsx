@@ -5,7 +5,7 @@ import ScoreBar from "../components/ScoreBar.jsx";
 
 export default function Matching() {
   const [params] = useSearchParams();
-  const batchId = params.get("batch");
+  const batchId = params.get("batch") || sessionStorage.getItem("activeBatchId");
   const navigate = useNavigate();
 
   const [batch, setBatch] = useState(null);
@@ -19,6 +19,7 @@ export default function Matching() {
       setLoading(false);
       return;
     }
+    sessionStorage.setItem("activeBatchId", batchId);
     Promise.all([api.getBatch(batchId), api.getMatches(batchId)])
       .then(([b, m]) => {
         setBatch(b);
